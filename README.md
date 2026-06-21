@@ -1,15 +1,26 @@
 Terra House Real Estate Website
 
-A simple front-end real estate website built using HTML and CSS.
+A responsive front-end real estate website designed to display property listings with a modern UI.
+
+---
 
 Features
-- Property listings UI
-- Responsive design
-- Modern layout
+- Home page with property listings
+- About and contact sections
+- Responsive design for mobile and desktop
+- Clean UI layout
 
-Tech Used
+---
+
+Technologies Used
 - HTML
 - CSS
+- JavaScript
+
+---
 
 Author
 Muhammad Salman
+
+Note
+This project focuses on front-end design and layout structure for a real estate website.
