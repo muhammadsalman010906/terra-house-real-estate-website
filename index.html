@@ -1,0 +1,1250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Terra House — Engineering Luxury Since 2006</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          charcoal: '#111111',
+          walnut: '#3c2a1e',
+          oak: '#8a5a35',
+          gold: '#d4af6a',
+          cream: '#f1e6d2',
+        },
+        fontFamily: {
+          display: ['Cormorant Garamond', 'serif'],
+          body: ['Manrope', 'sans-serif'],
+        },
+      }
+    }
+  }
+</script>
+<style>
+  :root{
+    --charcoal:#111111;
+    --walnut:#3c2a1e;
+    --oak:#8a5a35;
+    --gold:#d4af6a;
+    --cream:#f1e6d2;
+  }
+  *{ scroll-behavior: smooth; }
+  body{
+    background-color: var(--charcoal);
+    color: var(--cream);
+    font-family: 'Manrope', sans-serif;
+    overflow-x: hidden;
+  }
+  h1,h2,h3,h4, .font-display{
+    font-family: 'Cormorant Garamond', serif;
+  }
+  ::-webkit-scrollbar{ width: 8px; }
+  ::-webkit-scrollbar-track{ background: #111111; }
+  ::-webkit-scrollbar-thumb{ background: linear-gradient(180deg, var(--gold), var(--oak)); border-radius: 10px; }
+
+  /* Glassmorphism Navbar */
+  .glass-nav{
+    background: rgba(17, 17, 17, 0.55);
+    backdrop-filter: blur(18px) saturate(150%);
+    -webkit-backdrop-filter: blur(18px) saturate(150%);
+    border-bottom: 1px solid rgba(212, 175, 106, 0.15);
+  }
+
+  /* Gold gradient text */
+  .gold-text{
+    background: linear-gradient(120deg, #f1e6d2 0%, #d4af6a 45%, #8a5a35 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Wood grain texture overlay */
+  .wood-texture{
+    background-image:
+      repeating-linear-gradient(95deg, rgba(212,175,106,0.05) 0px, rgba(212,175,106,0.05) 2px, transparent 2px, transparent 6px),
+      linear-gradient(135deg, #1a120b 0%, #2a1c12 50%, #1a120b 100%);
+  }
+
+  /* Hero background */
+  .hero-bg{
+    background-image:
+      linear-gradient(180deg, rgba(17,17,17,0.55) 0%, rgba(17,17,17,0.75) 60%, rgba(17,17,17,1) 100%),
+      url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2000&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+  }
+
+  /* 3D tilt card */
+  .tilt-card{
+    transform-style: preserve-3d;
+    transition: transform 0.15s ease-out, box-shadow 0.3s ease;
+    will-change: transform;
+  }
+  .tilt-card:hover{
+    box-shadow: 0 25px 60px -15px rgba(212,175,106,0.25), 0 10px 30px -10px rgba(0,0,0,0.6);
+  }
+  .tilt-inner{
+    transform: translateZ(20px);
+  }
+
+  /* Reveal on scroll */
+  .reveal{
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.9s cubic-bezier(.22,.68,0,1.01), transform 0.9s cubic-bezier(.22,.68,0,1.01);
+  }
+  .reveal.visible{
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-left{
+    opacity: 0;
+    transform: translateX(-60px);
+    transition: opacity 0.9s cubic-bezier(.22,.68,0,1.01), transform 0.9s cubic-bezier(.22,.68,0,1.01);
+  }
+  .reveal-left.visible{ opacity: 1; transform: translateX(0); }
+  .reveal-right{
+    opacity: 0;
+    transform: translateX(60px);
+    transition: opacity 0.9s cubic-bezier(.22,.68,0,1.01), transform 0.9s cubic-bezier(.22,.68,0,1.01);
+  }
+  .reveal-right.visible{ opacity: 1; transform: translateX(0); }
+
+  /* Floating quick connect */
+  .float-bounce{
+    animation: floatY 3.5s ease-in-out infinite;
+  }
+  @keyframes floatY{
+    0%, 100%{ transform: translateY(0px); }
+    50%{ transform: translateY(-10px); }
+  }
+
+  /* Gold border button */
+  .btn-gold{
+    background: linear-gradient(120deg, var(--gold), #b88a4a);
+    color: #1a120b;
+    box-shadow: 0 8px 25px -8px rgba(212,175,106,0.6);
+    transition: all 0.3s ease;
+  }
+  .btn-gold:hover{
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 15px 35px -8px rgba(212,175,106,0.8);
+  }
+
+  .btn-outline-gold{
+    border: 1px solid rgba(212,175,106,0.4);
+    transition: all 0.3s ease;
+  }
+  .btn-outline-gold:hover{
+    border-color: var(--gold);
+    background: rgba(212,175,106,0.08);
+    transform: translateY(-2px);
+  }
+
+  /* Card hover image zoom */
+  .img-zoom{
+    transition: transform 0.7s cubic-bezier(.22,.68,0,1.01);
+  }
+  .group:hover .img-zoom{
+    transform: scale(1.12) rotate(0.5deg);
+  }
+
+  /* Section divider */
+  .divider-gold{
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+
+  /* Custom checkbox/star */
+  .star{ color: var(--gold); }
+
+  /* Chatbot */
+  .chat-bubble-bot{
+    background: linear-gradient(135deg, #2a1c12, #1a120b);
+    border: 1px solid rgba(212,175,106,0.2);
+  }
+  .chat-bubble-user{
+    background: linear-gradient(135deg, var(--gold), #b88a4a);
+    color: #1a120b;
+  }
+  .typing-dot{
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--gold);
+    animation: typingBounce 1.4s infinite ease-in-out;
+  }
+  .typing-dot:nth-child(2){ animation-delay: 0.2s; }
+  .typing-dot:nth-child(3){ animation-delay: 0.4s; }
+  @keyframes typingBounce{
+    0%, 60%, 100%{ transform: translateY(0); opacity: 0.4; }
+    30%{ transform: translateY(-5px); opacity: 1; }
+  }
+
+  /* Modal backdrop */
+  .modal-backdrop{
+    background: rgba(10,8,6,0.75);
+    backdrop-filter: blur(6px);
+  }
+
+  /* Animated underline link */
+  .nav-link{
+    position: relative;
+  }
+  .nav-link::after{
+    content: '';
+    position: absolute;
+    left: 0; bottom: -6px;
+    width: 0%; height: 1px;
+    background: var(--gold);
+    transition: width 0.3s ease;
+  }
+  .nav-link:hover::after{ width: 100%; }
+
+  /* Mesh / grain overlay for whole page */
+  .grain-overlay{
+    pointer-events: none;
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* Marquee for testimonials on mobile */
+  .scrollbar-hide::-webkit-scrollbar{ display:none; }
+  .scrollbar-hide{ -ms-overflow-style: none; scrollbar-width: none; }
+
+  /* Pulse ring for chat toggle */
+  .pulse-ring{
+    animation: pulseRing 2.5s infinite;
+  }
+  @keyframes pulseRing{
+    0%{ box-shadow: 0 0 0 0 rgba(212,175,106,0.5); }
+    70%{ box-shadow: 0 0 0 14px rgba(212,175,106,0); }
+    100%{ box-shadow: 0 0 0 0 rgba(212,175,106,0); }
+  }
+</style>
+</head>
+<body class="antialiased">
+
+<div class="grain-overlay"></div>
+
+<!-- ============ HEADER / NAV ============ -->
+<header id="navbar" class="fixed top-0 left-0 w-full z-50 transition-all duration-500">
+  <nav class="glass-nav mx-auto mt-0 px-6 md:px-10 py-4 flex items-center justify-between">
+    <a href="#home" class="flex items-center gap-3 group">
+      <div class="w-10 h-10 rounded-full border border-gold/40 flex items-center justify-center bg-gradient-to-br from-walnut to-charcoal group-hover:rotate-[20deg] transition-transform duration-500">
+        <span class="font-display text-gold text-xl">T</span>
+      </div>
+      <div class="leading-tight">
+        <p class="font-display text-xl md:text-2xl tracking-wide gold-text">Terra House</p>
+        <p class="text-[10px] md:text-xs text-cream/50 uppercase tracking-[0.2em]">Est. 2006</p>
+      </div>
+    </a>
+
+    <div class="hidden lg:flex items-center gap-8 text-sm uppercase tracking-wider text-cream/80">
+      <a href="#about" class="nav-link hover:text-gold transition-colors">About</a>
+      <a href="#projects" class="nav-link hover:text-gold transition-colors">Real Estate</a>
+      <a href="#construction" class="nav-link hover:text-gold transition-colors">Construction</a>
+      <a href="#team" class="nav-link hover:text-gold transition-colors">Team</a>
+      <a href="#careers" class="nav-link hover:text-gold transition-colors">Careers</a>
+      <a href="#testimonials" class="nav-link hover:text-gold transition-colors">Reviews</a>
+      <a href="#contact" class="nav-link hover:text-gold transition-colors">Contact</a>
+    </div>
+
+    <a href="#contact" class="hidden md:inline-flex btn-gold font-semibold text-sm px-6 py-2.5 rounded-full uppercase tracking-wide">
+      Get a Quote
+    </a>
+
+    <button id="menuBtn" class="lg:hidden text-gold text-2xl">
+      <svg id="menuIcon" xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5M3.75 17.25h16.5" />
+      </svg>
+    </button>
+  </nav>
+
+  <!-- Mobile menu -->
+  <div id="mobileMenu" class="lg:hidden hidden glass-nav px-6 py-6 flex flex-col gap-4 text-cream/90 uppercase tracking-wider text-sm">
+    <a href="#about" class="hover:text-gold transition-colors">About</a>
+    <a href="#projects" class="hover:text-gold transition-colors">Real Estate</a>
+    <a href="#construction" class="hover:text-gold transition-colors">Construction</a>
+    <a href="#team" class="hover:text-gold transition-colors">Team</a>
+    <a href="#careers" class="hover:text-gold transition-colors">Careers</a>
+    <a href="#testimonials" class="hover:text-gold transition-colors">Reviews</a>
+    <a href="#contact" class="hover:text-gold transition-colors">Contact</a>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section id="home" class="relative min-h-screen flex items-center justify-center hero-bg pt-24 px-6">
+  <div class="absolute inset-0 wood-texture opacity-20"></div>
+  <div class="relative z-10 max-w-5xl mx-auto text-center reveal" id="heroContent">
+    <p class="uppercase tracking-[0.35em] text-gold/80 text-xs md:text-sm mb-6">Premier Construction &amp; Real Estate</p>
+    <h1 class="font-display text-5xl sm:text-6xl md:text-8xl leading-[1.05] mb-6">
+      <span class="gold-text">Terra House</span><br/>
+      <span class="text-cream">Engineering Luxury</span><br/>
+      <span class="italic text-cream/80">Since 2006</span>
+    </h1>
+    <p class="max-w-2xl mx-auto text-cream/60 text-base md:text-lg mb-10 leading-relaxed">
+      Two decades of building landmark residences, master-planned communities, and high-end commercial spaces — crafted with precision, integrity, and an obsession for timeless design.
+    </p>
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+      <a href="#projects" class="btn-gold font-semibold px-8 py-4 rounded-full uppercase tracking-wider text-sm w-full sm:w-auto text-center">
+        Explore Projects
+      </a>
+      <a href="https://wa.me/923331518984" target="_blank" rel="noopener" class="btn-outline-gold font-semibold px-8 py-4 rounded-full uppercase tracking-wider text-sm w-full sm:w-auto text-center text-cream">
+        Speak to Farooq Ahmed
+      </a>
+    </div>
+
+    <div class="mt-16 grid grid-cols-3 max-w-xl mx-auto gap-6 border-t border-gold/15 pt-8">
+      <div>
+        <p class="font-display text-3xl md:text-4xl gold-text">19+</p>
+        <p class="text-[11px] md:text-xs uppercase tracking-widest text-cream/50 mt-1">Years of Trust</p>
+      </div>
+      <div>
+        <p class="font-display text-3xl md:text-4xl gold-text">120+</p>
+        <p class="text-[11px] md:text-xs uppercase tracking-widest text-cream/50 mt-1">Projects Delivered</p>
+      </div>
+      <div>
+        <p class="font-display text-3xl md:text-4xl gold-text">6</p>
+        <p class="text-[11px] md:text-xs uppercase tracking-widest text-cream/50 mt-1">Premier Societies</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce text-gold/60">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+    </svg>
+  </div>
+</section>
+
+<!-- ============ QUICK CONNECT FLOATING WIDGET ============ -->
+<div class="fixed left-4 md:left-6 bottom-24 z-50 flex flex-col gap-3">
+  <a href="https://wa.me/923331518984" target="_blank" rel="noopener" class="float-bounce group relative flex items-center gap-3 bg-[#1a120b] border border-gold/30 rounded-full pl-3 pr-4 py-3 shadow-2xl hover:pr-6 transition-all duration-300">
+    <span class="flex items-center justify-center w-8 h-8 rounded-full bg-[#25D366]/20 text-[#25D366]">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"><path d="M17.498 14.382c-.301-.15-1.767-.867-2.04-.966-.273-.101-.473-.15-.673.15-.197.295-.771.964-.944 1.162-.175.195-.349.21-.646.075-.3-.15-1.263-.465-2.403-1.485-.888-.795-1.484-1.77-1.66-2.07-.174-.3-.019-.465.13-.615.149-.15.345-.39.523-.585.18-.195.24-.345.36-.57.12-.225.06-.42-.03-.57-.09-.15-.66-1.59-.9-2.193-.24-.6-.486-.51-.66-.51-.168-.015-.36-.015-.555-.015-.195 0-.51.075-.78.345-.27.27-1.05 1.026-1.05 2.508 0 1.482 1.08 2.913 1.23 3.117.149.195 2.073 3.165 5.022 4.305 2.948 1.14 2.948.76 3.479.71.53-.051 1.73-.706 1.97-1.39.24-.685.24-1.27.165-1.39-.075-.119-.27-.195-.57-.345z"/><path d="M12.04 2.003c-5.514 0-9.991 4.474-9.993 9.987-.001 2.197.654 3.847 1.751 5.488l-1.123 4.106 4.213-1.105c1.566.857 3.273 1.353 5.156 1.355h.004c5.51 0 9.988-4.477 9.99-9.987.002-2.665-1.034-5.169-2.928-7.063-1.893-1.893-4.399-2.776-7.07-2.781zm5.851 14.835c-.247.694-1.444 1.358-1.974 1.41-.53.052-1.06.23-3.7-.866-3.13-1.296-5.131-4.46-5.286-4.66-.155-.2-1.263-1.68-1.263-3.205 0-1.526.806-2.276 1.092-2.586.286-.31.624-.388.832-.388.207 0 .415.002.596.011.19.01.45-.072.703.537.26.625.882 2.151.96 2.305.078.155.13.337.026.54-.103.205-.155.33-.31.51-.155.18-.327.4-.467.537-.155.155-.317.323-.135.633.182.31.81 1.34 1.74 2.17 1.196 1.066 2.205 1.397 2.515 1.55.31.155.49.13.67-.077.18-.207.78-.91.99-1.222.207-.31.413-.258.694-.155.282.103 1.79.844 2.097.997.31.155.515.232.59.36.077.13.077.755-.17 1.45z"/></svg>
+    </span>
+    <span class="hidden group-hover:inline-block whitespace-nowrap text-sm font-medium text-cream/90">WhatsApp Us</span>
+  </a>
+
+  <a href="mailto:theterrahouseco@gmail.com" class="float-bounce group relative flex items-center gap-3 bg-[#1a120b] border border-gold/30 rounded-full pl-3 pr-4 py-3 shadow-2xl hover:pr-6 transition-all duration-300" style="animation-delay: 0.5s;">
+    <span class="flex items-center justify-center w-8 h-8 rounded-full bg-gold/20 text-gold">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-4.5 h-4.5"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" /></svg>
+    </span>
+    <span class="hidden group-hover:inline-block whitespace-nowrap text-sm font-medium text-cream/90">Email Us</span>
+  </a>
+</div>
+
+<!-- ============ ABOUT US ============ -->
+<section id="about" class="relative py-28 px-6 wood-texture overflow-hidden">
+  <div class="absolute inset-0 bg-charcoal/85"></div>
+  <div class="relative max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
+
+    <div class="reveal-left">
+      <p class="uppercase tracking-[0.35em] text-gold/70 text-xs mb-4">Our Story</p>
+      <h2 class="font-display text-4xl md:text-5xl mb-6 leading-tight">
+        Two Decades of <span class="gold-text">Building Trust</span>, Brick by Brick
+      </h2>
+      <p class="text-cream/65 leading-relaxed mb-5">
+        Founded in 2006 by <span class="text-gold font-semibold">Farooq Ahmed</span>, Terra House began as a modest construction outfit with a singular promise: deliver every project with honesty, craftsmanship, and an eye for timeless design. Today, that promise has grown into one of the region's most trusted names in real estate marketing and premium construction.
+      </p>
+      <p class="text-cream/65 leading-relaxed mb-5">
+        From plot files in the Capital's most coveted societies to full-scale interior fit-outs for embassies and multinational offices, Terra House has quietly become the contractor of choice for clients who refuse to compromise on quality. Our in-house teams of architects, master carpenters, plumbers, and site engineers work in lock-step — meaning fewer vendors, faster timelines, and a single point of accountability: us.
+      </p>
+      <p class="text-cream/65 leading-relaxed mb-8">
+        Under Farooq Ahmed's leadership, Terra House has built a reputation for dominating the market not through volume, but through relationships — repeat clients, referred families, and corporate partners who return project after project.
+      </p>
+
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div class="flex items-start gap-3 reveal-left">
+          <div class="w-10 h-10 flex-shrink-0 rounded-lg bg-gold/10 border border-gold/30 flex items-center justify-center text-gold">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+          </div>
+          <div>
+            <p class="font-semibold text-cream">Licensed &amp; Insured</p>
+            <p class="text-sm text-cream/50">Fully compliant with regional construction codes.</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-3">
+          <div class="w-10 h-10 flex-shrink-0 rounded-lg bg-gold/10 border border-gold/30 flex items-center justify-center text-gold">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" /></svg>
+          </div>
+          <div>
+            <p class="font-semibold text-cream">Rapid Execution</p>
+            <p class="text-sm text-cream/50">In-house teams cut delays and vendor friction.</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-3">
+          <div class="w-10 h-10 flex-shrink-0 rounded-lg bg-gold/10 border border-gold/30 flex items-center justify-center text-gold">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 18.75h-9m9 0a3 3 0 013 3h-15a3 3 0 013-3m9 0v-3.375c0-.621-.503-1.125-1.125-1.125h-.871M7.5 18.75v-3.375c0-.621.504-1.125 1.125-1.125h.872m5.007 0H9.497m5.007 0a7.454 7.454 0 01-.982-3.172M9.497 14.25a7.454 7.454 0 00.981-3.172M5.25 4.236c-.982.143-1.954.317-2.916.52A6.003 6.003 0 007.73 9.728M5.25 4.236V4.5c0 2.108.966 3.99 2.48 5.228M5.25 4.236V2.721C7.456 2.41 9.71 2.25 12 2.25c2.291 0 4.545.16 6.75.47v1.516M7.73 9.728a6.726 6.726 0 002.748 1.35m8.272-6.842V4.5c0 2.108-.966 3.99-2.48 5.228m2.48-5.492a46.32 46.32 0 012.916.52 6.003 6.003 0 01-5.395 4.972m0 0a6.726 6.726 0 01-2.749 1.35m0 0c-.353.066-.715.1-1.084.1-.37 0-.731-.034-1.084-.1m1.084.1v3.46c0 .538.214 1.055.595 1.436l1.32 1.32a2.25 2.25 0 010 3.182l-1.32 1.32a2.06 2.06 0 01-1.436.595M9.5 14.25v3.46c0 .538-.214 1.055-.595 1.436l-1.32 1.32a2.25 2.25 0 000 3.182" /></svg>
+          </div>
+          <div>
+            <p class="font-semibold text-cream">Award-Worthy Quality</p>
+            <p class="text-sm text-cream/50">Premium finishes trusted by embassies &amp; brands.</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-3">
+          <div class="w-10 h-10 flex-shrink-0 rounded-lg bg-gold/10 border border-gold/30 flex items-center justify-center text-gold">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0zM12 8.25v7.5m3.75-3.75h-7.5" /></svg>
+          </div>
+          <div>
+            <p class="font-semibold text-cream">Transparent Pricing</p>
+            <p class="text-sm text-cream/50">No hidden costs — ever, on any contract.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Animated Company Profile Card -->
+    <div class="reveal-right flex justify-center">
+      <div id="profileCard" class="tilt-card relative w-full max-w-sm rounded-3xl p-1 bg-gradient-to-br from-gold/40 via-walnut to-charcoal shadow-2xl">
+        <div class="tilt-inner rounded-[22px] bg-[#161210] border border-gold/10 p-8 relative overflow-hidden">
+          <div class="absolute -top-16 -right-16 w-48 h-48 bg-gold/10 rounded-full blur-3xl"></div>
+          <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-oak/20 rounded-full blur-3xl"></div>
+
+          <div class="relative z-10">
+            <div class="flex items-center justify-between mb-8">
+              <div>
+                <p class="font-display text-2xl gold-text">Terra House</p>
+                <p class="text-xs text-cream/40 uppercase tracking-widest">Company Profile · 2024</p>
+              </div>
+              <div class="w-12 h-12 rounded-full border-2 border-gold/40 flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-6 h-6 text-gold"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21" /></svg>
+              </div>
+            </div>
+
+            <div class="space-y-4 mb-8">
+              <div class="flex justify-between text-sm border-b border-gold/10 pb-2">
+                <span class="text-cream/50">Founder</span>
+                <span class="text-cream font-medium">Farooq Ahmed</span>
+              </div>
+              <div class="flex justify-between text-sm border-b border-gold/10 pb-2">
+                <span class="text-cream/50">Operating Since</span>
+                <span class="text-cream font-medium">2006</span>
+              </div>
+              <div class="flex justify-between text-sm border-b border-gold/10 pb-2">
+                <span class="text-cream/50">Divisions</span>
+                <span class="text-cream font-medium">Real Estate &amp; Construction</span>
+              </div>
+              <div class="flex justify-between text-sm border-b border-gold/10 pb-2">
+                <span class="text-cream/50">Flagship Societies</span>
+                <span class="text-cream font-medium text-right">6 Premium Projects</span>
+              </div>
+              <div class="flex justify-between text-sm">
+                <span class="text-cream/50">Contact</span>
+                <span class="text-cream font-medium">0333 1518984</span>
+              </div>
+            </div>
+
+            <button onclick="downloadProfile()" class="w-full btn-gold font-semibold py-3.5 rounded-xl uppercase tracking-wider text-sm flex items-center justify-center gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" /></svg>
+              Download Company Profile
+            </button>
+            <p class="text-center text-[11px] text-cream/30 mt-3">Generates a Terra House overview (.txt)</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ REAL ESTATE PROJECTS ============ -->
+<section id="projects" class="relative py-28 px-6">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center max-w-2xl mx-auto mb-16 reveal">
+      <p class="uppercase tracking-[0.35em] text-gold/70 text-xs mb-4">Real Estate Division</p>
+      <h2 class="font-display text-4xl md:text-5xl mb-5">Master-Planned <span class="gold-text">Communities</span></h2>
+      <p class="text-cream/55 leading-relaxed">
+        Terra House represents prime files and plots across the Capital's most sought-after societies — backed by transparent documentation and on-ground verification.
+      </p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+
+      <!-- Card Template Repeated -->
+      <div class="project-card reveal tilt-card group relative h-96 rounded-3xl overflow-hidden border border-gold/10">
+        <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=1200&auto=format&fit=crop" alt="B-17 Multi Gardens" class="img-zoom absolute inset-0 w-full h-full object-cover" />
+        <div class="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/40 to-transparent"></div>
+        <div class="absolute top-5 left-5 px-3 py-1 rounded-full bg-charcoal/60 border border-gold/30 text-xs uppercase tracking-widest text-gold backdrop-blur">Islamabad</div>
+        <div class="tilt-inner absolute bottom-0 left-0 p-6">
+          <h3 class="font-display text-2xl mb-2 text-cream">B-17 Multi Gardens</h3>
+          <p class="text-sm text-cream/60 leading-relaxed mb-3">A self-sufficient, eco-friendly housing scheme offering residential and commercial plots with wide carpeted roads and lush green belts.</p>
+          <a href="https://wa.me/923331518984?text=I'm%20interested%20in%20B-17%20Multi%20Gardens" target="_blank" rel="noopener" class="inline-flex items-center gap-2 text-gold text-sm font-semibold group-hover:gap-3 transition-all">
+            Inquire Now
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" /></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="project-card reveal tilt-card group relative h-96 rounded-3xl overflow-hidden border border-gold/10">
+        <img src="https://images.unsplash.com/photo-1613977257363-707ba9348227?q=80&w=1200&auto=format&fit=crop" alt="Capital Smart City" class="img-zoom absolute inset-0 w-full h-full object-cover" />
+        <div class="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/40 to-transparent"></div>
+        <div class="absolute top-5 left-5 px-3 py-1 rounded-full bg-charcoal/60 border border-gold/30 text-xs uppercase tracking-widest text-gold backdrop-blur">Smart City</div>
+        <div class="tilt-inner absolute bottom-0 left-0 p-6">
+          <h3 class="font-display text-2xl mb-2 text-cream">Capital Smart City</h3>
+          <p class="text-sm text-cream/60 leading-relaxed mb-3">Pakistan's first smart city — futuristic infrastructure, IoT integration, and world-class amenities along the M-2 Motorway.</p>
+          <a href="https://wa.me/923331518984?text=I'm%20interested%20in%20Capital%20Smart%20City" target="_blank" rel="noopener" class="inline-flex items-center gap-2 text-gold text-sm font-semibold group-hover:gap-3 transition-all">
+            Inquire Now
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" /></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="project-card reveal tilt-card group relative h-96 rounded-3xl overflow-hidden border border-gold/10">
+        <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?q=80&w=1200&auto=format&fit=crop" alt="University Town" class="img-zoom absolute inset-0 w-full h-full object-cover" />
+        <div class="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/40 to-transparent"></div>
+        <div class="absolute top-5 left-5 px-3 py-1 rounded-full bg-charcoal/60 border border-gold/30 text-xs uppercase tracking-widest text-gold backdrop-blur">Rawalpindi</div>
+        <div class="tilt-inner absolute bottom-0 left-0 p-6">
+          <h3 class="font-display text-2xl mb-2 text-cream">University Town</h3>
+          <p class="text-sm text-cream/60 leading-relaxed mb-3">A serene residential enclave designed for academics and families, offering peaceful living close to leading institutions.</p>
+          <a href="https://wa.me/923331518984?text=I'm%20interested%20in%20University%20Town" target="_blank" rel="noopener" class="inline-flex items-center gap-2 text-gold text-sm font-semibold group-hover:gap-3 transition-all">
+            Inquire Now
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" /></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="project-card reveal tilt-card group relative h-96 rounded-3xl overflow-hidden border border-gold/10">
+        <img src="https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?q=80&w=1200&auto=format&fit=crop" alt="Faisal Hills" class="img-zoom absolute inset-0 w-full h-full object-cover" />
+        <div class="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/40 to-transparent"></div>
+        <div class="absolute top-5 left-5 px-3 py-1 rounded-full bg-charcoal/60 border border-gold/30 text-xs uppercase tracking-widest text-gold backdrop-blur">Margalla Foothills</div>
+        <div class="tilt-inner absolute bottom-0 left-0 p-6">
+          <h3 class="font-display text-2xl mb-2 text-cream">Faisal Hills</h3>
+          <p class="text-sm text-cream/60 leading-relaxed mb-3">Nestled against the Margalla Hills, offering panoramic mountain views with modern infrastructure and gated security.</p>
+          <a href="https://wa.me/923331518984?text=I'm%20interested%20in%20Faisal%20Hills" target="_blank" rel="noopener" class="inline-flex items-center gap-2 text-gold text-sm font-semibold group-hover:gap-3 transition-all">
+            Inquire Now
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" /></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="project-card reveal tilt-card group relative h-96 rounded-3xl overflow-hidden border border-gold/10">
+        <img src="https://images.unsplash.com/photo-1572120360610-d971b9d7767c?q=80&w=1200&auto=format&fit=crop" alt="Faisal Town" class="img-zoom absolute inset-0 w-full h-full object-cover" />
+        <div class="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/40 to-transparent"></div>
+        <div class="absolute top-5 left-5 px-3 py-1 rounded-full bg-charcoal/60 border border-gold/30 text-xs uppercase tracking-widest text-gold backdrop-blur">Islamabad</div>
+        <div class="tilt-inner absolute bottom-0 left-0 p-6">
+          <h3 class="font-display text-2xl mb-2 text-cream">Faisal Town</h3>
+          <p class="text-sm text-cream/60 leading-relaxed mb-3">An established, well-developed society featuring mosques, parks, schools, and a thriving commercial hub.</p>
+          <a href="https://wa.me/923331518984?text=I'm%20interested%20in%20Faisal%20Town" target="_blank" rel="noopener" class="inline-flex items-center gap-2 text-gold text-sm font-semibold group-hover:gap-3 transition-all">
+            Inquire Now
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" /></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="project-card reveal tilt-card group relative h-96 rounded-3xl overflow-hidden border border-gold/10">
+        <img src="https://images.unsplash.com/photo-1592595896551-12b371d546d5?q=80&w=1200&auto=format&fit=crop" alt="Park View City" class="img-zoom absolute inset-0 w-full h-full object-cover" />
+        <div class="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/40 to-transparent"></div>
+        <div class="absolute top-5 left-5 px-3 py-1 rounded-full bg-charcoal/60 border border-gold/30 text-xs uppercase tracking-widest text-gold backdrop-blur">Islamabad</div>
+        <div class="tilt-inner absolute bottom-0 left-0 p-6">
+          <h3 class="font-display text-2xl mb-2 text-cream">Park View City</h3>
+          <p class="text-sm text-cream/60 leading-relaxed mb-3">A premium gated community offering luxury villas, apartments, and farmhouses with resort-style amenities.</p>
+          <a href="https://wa.me/923331518984?text=I'm%20interested%20in%20Park%20View%20City" target="_blank" rel="noopener" class="inline-flex items-center gap-2 text-gold text-sm font-semibold group-hover:gap-3 transition-all">
+            Inquire Now
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" /></svg>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONSTRUCTION & RENOVATION ============ -->
+<section id="construction" class="relative py-28 px-6 wood-texture">
+  <div class="absolute inset-0 bg-charcoal/90"></div>
+  <div class="relative max-w-7xl mx-auto">
+    <div class="text-center max-w-2xl mx-auto mb-16 reveal">
+      <p class="uppercase tracking-[0.35em] text-gold/70 text-xs mb-4">Construction Division</p>
+      <h2 class="font-display text-4xl md:text-5xl mb-5">Commercial-Grade <span class="gold-text">Craftsmanship</span></h2>
+      <p class="text-cream/55 leading-relaxed">
+        From ground-up builds to executive renovations, our construction arm delivers turnkey solutions for the region's most demanding commercial clients.
+      </p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+      <div class="case-card reveal tilt-card relative rounded-2xl overflow-hidden border border-gold/10 h-[420px] group">
+        <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=80&w=1000&auto=format&fit=crop" alt="Multinational Companies" class="img-zoom absolute inset-0 w-full h-full object-cover opacity-50 group-hover:opacity-70 transition-opacity"/>
+        <div class="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/60 to-transparent"></div>
+        <div class="tilt-inner absolute bottom-0 p-6">
+          <div class="w-10 h-10 rounded-lg bg-gold/15 border border-gold/30 flex items-center justify-center text-gold mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21" /></svg>
+          </div>
+          <h3 class="font-display text-xl mb-2 text-cream">Multinational Companies</h3>
+          <p class="text-sm text-cream/55 leading-relaxed">Complete office fit-outs and infrastructure upgrades for global corporate tenants, delivered on tight international timelines.</p>
+        </div>
+      </div>
+
+      <div class="case-card reveal tilt-card relative rounded-2xl overflow-hidden border border-gold/10 h-[420px] group">
+        <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=1000&auto=format&fit=crop" alt="Premier Group of Companies" class="img-zoom absolute inset-0 w-full h-full object-cover opacity-50 group-hover:opacity-70 transition-opacity"/>
+        <div class="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/60 to-transparent"></div>
+        <div class="tilt-inner absolute bottom-0 p-6">
+          <div class="w-10 h-10 rounded-lg bg-gold/15 border border-gold/30 flex items-center justify-center text-gold mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h6M9 11.25h6M9 15.75h6" /></svg>
+          </div>
+          <h3 class="font-display text-xl mb-2 text-cream">Premier Group of Companies</h3>
+          <p class="text-sm text-cream/55 leading-relaxed">End-to-end renovation of executive headquarters — including bespoke woodwork, lighting design, and structural upgrades.</p>
+        </div>
+      </div>
+
+      <div class="case-card reveal tilt-card relative rounded-2xl overflow-hidden border border-gold/10 h-[420px] group">
+        <img src="https://images.unsplash.com/photo-1577979749830-f1d742b96791?q=80&w=1000&auto=format&fit=crop" alt="Embassies" class="img-zoom absolute inset-0 w-full h-full object-cover opacity-50 group-hover:opacity-70 transition-opacity"/>
+        <div class="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/60 to-transparent"></div>
+        <div class="tilt-inner absolute bottom-0 p-6">
+          <div class="w-10 h-10 rounded-lg bg-gold/15 border border-gold/30 flex items-center justify-center text-gold mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21v-7.5a2.25 2.25 0 00-2.25-2.25h-1.5A2.25 2.25 0 0015 13.5V21m6 0H3m18 0V9.349M3 21V9.349m0 0a3.001 3.001 0 003.75-.615A2.993 2.993 0 009 9.75c.896 0 1.7-.393 2.25-1.016a2.993 2.993 0 002.25 1.016c.896 0 1.7-.393 2.25-1.015a3.001 3.001 0 003.75.614M21 9.349V5.25A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25v4.099" /></svg>
+          </div>
+          <h3 class="font-display text-xl mb-2 text-cream">Embassies</h3>
+          <p class="text-sm text-cream/55 leading-relaxed">Security-compliant renovation and construction projects executed with discretion, precision, and diplomatic-grade standards.</p>
+        </div>
+      </div>
+
+      <div class="case-card reveal tilt-card relative rounded-2xl overflow-hidden border border-gold/10 h-[420px] group">
+        <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?q=80&w=1000&auto=format&fit=crop" alt="Sky Marketing Offices" class="img-zoom absolute inset-0 w-full h-full object-cover opacity-50 group-hover:opacity-70 transition-opacity"/>
+        <div class="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/60 to-transparent"></div>
+        <div class="tilt-inner absolute bottom-0 p-6">
+          <div class="w-10 h-10 rounded-lg bg-gold/15 border border-gold/30 flex items-center justify-center text-gold mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15" /></svg>
+          </div>
+          <h3 class="font-display text-xl mb-2 text-cream">Sky Marketing Offices</h3>
+          <p class="text-sm text-cream/55 leading-relaxed">Flagship sales offices and branch interiors designed to reflect premium brand identity and client trust.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ TEAM ============ -->
+<section id="team" class="relative py-28 px-6">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center max-w-2xl mx-auto mb-16 reveal">
+      <p class="uppercase tracking-[0.35em] text-gold/70 text-xs mb-4">Our Workforce</p>
+      <h2 class="font-display text-4xl md:text-5xl mb-5">The Hands Behind <span class="gold-text">Every Build</span></h2>
+      <p class="text-cream/55 leading-relaxed">
+        Terra House operates an integrated, in-house workforce — every craft under one roof, working as one team from blueprint to handover.
+      </p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-5 gap-6">
+
+      <div class="team-card reveal tilt-card rounded-2xl border border-gold/10 bg-[#161210] p-6 text-center hover:border-gold/40 transition-colors">
+        <div class="tilt-inner">
+          <div class="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-gold/30 to-walnut flex items-center justify-center mb-4 text-gold">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-8 h-8"><path stroke-linecap="round" stroke-linejoin="round" d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245c0-.399-.078-.78-.22-1.128zm0 0a15.998 15.998 0 003.388-1.62m-5.043-.025a15.994 15.994 0 011.622-3.395m3.42 3.42a15.995 15.995 0 004.764-4.648l3.876-5.814a1.151 1.151 0 00-1.597-1.597L14.146 6.32a15.996 15.996 0 00-4.649 4.763m3.42 3.42a6.776 6.776 0 00-3.42-3.42" /></svg>
+          </div>
+          <h3 class="font-display text-lg mb-1">Architecture Leads</h3>
+          <p class="text-xs text-cream/50 leading-relaxed">Master planners shaping every floor plan and façade with precision.</p>
+        </div>
+      </div>
+
+      <div class="team-card reveal tilt-card rounded-2xl border border-gold/10 bg-[#161210] p-6 text-center hover:border-gold/40 transition-colors">
+        <div class="tilt-inner">
+          <div class="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-gold/30 to-walnut flex items-center justify-center mb-4 text-gold">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-8 h-8"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75a4.5 4.5 0 01-4.884 4.484c-1.076-.091-2.264.071-2.95.904l-7.152 8.42a2.25 2.25 0 11-3.214-3.137l8.42-7.151c.832-.687.994-1.875.904-2.95a4.5 4.5 0 016.336-4.486l-3.276 3.276a3.004 3.004 0 002.25 2.25l3.276-3.276c.256.565.396 1.192.396 1.857a4.5 4.5 0 01-.106 1.029z" /></svg>
+          </div>
+          <h3 class="font-display text-lg mb-1">Master Carpenters</h3>
+          <p class="text-xs text-cream/50 leading-relaxed">Custom woodwork specialists crafting walnut &amp; oak finishes by hand.</p>
+        </div>
+      </div>
+
+      <div class="team-card reveal tilt-card rounded-2xl border border-gold/10 bg-[#161210] p-6 text-center hover:border-gold/40 transition-colors">
+        <div class="tilt-inner">
+          <div class="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-gold/30 to-walnut flex items-center justify-center mb-4 text-gold">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-8 h-8"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a5.25 5.25 0 016.775-5.025.75.75 0 01.313 1.248l-3.32 3.319c.063.475.276.934.641 1.299.365.365.824.578 1.3.64l3.318-3.319a.75.75 0 011.248.313 5.25 5.25 0 01-5.472 6.756c-1.018-.086-2.078.064-2.832.822L4.917 14.4l-3.97 4.974A1.5 1.5 0 003 21.75h13.5a1.5 1.5 0 001.06-2.56l-4.97-4.97c-.757-.756-.908-1.816-.822-2.833A5.25 5.25 0 0012 6.75z" /></svg>
+          </div>
+          <h3 class="font-display text-lg mb-1">Chief Plumbers</h3>
+          <p class="text-xs text-cream/50 leading-relaxed">Plumbing experts ensuring leak-free, code-compliant systems across all builds.</p>
+        </div>
+      </div>
+
+      <div class="team-card reveal tilt-card rounded-2xl border border-gold/10 bg-[#161210] p-6 text-center hover:border-gold/40 transition-colors">
+        <div class="tilt-inner">
+          <div class="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-gold/30 to-walnut flex items-center justify-center mb-4 text-gold">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-8 h-8"><path stroke-linecap="round" stroke-linejoin="round" d="M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 11-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 004.486-6.336l-3.276 3.276a3.004 3.004 0 01-2.25-2.25l3.276-3.276a4.5 4.5 0 00-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.94.777" /></svg>
+          </div>
+          <h3 class="font-display text-lg mb-1">Site Engineers</h3>
+          <p class="text-xs text-cream/50 leading-relaxed">On-ground supervisors enforcing safety, structural integrity &amp; timelines.</p>
+        </div>
+      </div>
+
+      <div class="team-card reveal tilt-card rounded-2xl border border-gold/10 bg-[#161210] p-6 text-center hover:border-gold/40 transition-colors">
+        <div class="tilt-inner">
+          <div class="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-gold/30 to-walnut flex items-center justify-center mb-4 text-gold">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-8 h-8"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" /></svg>
+          </div>
+          <h3 class="font-display text-lg mb-1">Skilled Labor Forces</h3>
+          <p class="text-xs text-cream/50 leading-relaxed">Trained crews handling masonry, finishing, and on-site logistics daily.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ CAREERS ============ -->
+<section id="careers" class="relative py-28 px-6 wood-texture">
+  <div class="absolute inset-0 bg-charcoal/90"></div>
+  <div class="relative max-w-6xl mx-auto">
+    <div class="text-center max-w-2xl mx-auto mb-16 reveal">
+      <p class="uppercase tracking-[0.35em] text-gold/70 text-xs mb-4">Join Our Team</p>
+      <h2 class="font-display text-4xl md:text-5xl mb-5">Build Your <span class="gold-text">Career</span> With Us</h2>
+      <p class="text-cream/55 leading-relaxed">
+        We're always looking for driven sales professionals and experienced construction managers to grow with Terra House.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-6">
+
+      <div class="reveal-left job-card rounded-2xl border border-gold/10 bg-[#161210] p-8 hover:border-gold/40 transition-colors">
+        <div class="flex items-start justify-between mb-4">
+          <div>
+            <p class="text-xs uppercase tracking-widest text-gold/70 mb-1">Sales Department</p>
+            <h3 class="font-display text-2xl">Senior Real Estate Sales Executive</h3>
+          </div>
+          <span class="px-3 py-1 rounded-full bg-gold/10 border border-gold/30 text-xs text-gold whitespace-nowrap">Full-Time</span>
+        </div>
+        <p class="text-cream/55 text-sm leading-relaxed mb-6">
+          Drive plot file sales across our flagship societies including B-17, Capital Smart City, and Park View City. Ideal for self-starters with an existing client network and strong negotiation skills.
+        </p>
+        <ul class="space-y-2 text-sm text-cream/60 mb-6">
+          <li class="flex items-center gap-2"><span class="text-gold">●</span> 2+ years real estate sales experience</li>
+          <li class="flex items-center gap-2"><span class="text-gold">●</span> Strong communication &amp; CRM familiarity</li>
+          <li class="flex items-center gap-2"><span class="text-gold">●</span> Competitive commission structure</li>
+        </ul>
+        <button onclick="openApplyModal('Senior Real Estate Sales Executive')" class="btn-gold font-semibold px-6 py-3 rounded-full uppercase tracking-wider text-xs">
+          Apply Now
+        </button>
+      </div>
+
+      <div class="reveal-right job-card rounded-2xl border border-gold/10 bg-[#161210] p-8 hover:border-gold/40 transition-colors">
+        <div class="flex items-start justify-between mb-4">
+          <div>
+            <p class="text-xs uppercase tracking-widest text-gold/70 mb-1">Construction Department</p>
+            <h3 class="font-display text-2xl">Construction Project Manager</h3>
+          </div>
+          <span class="px-3 py-1 rounded-full bg-gold/10 border border-gold/30 text-xs text-gold whitespace-nowrap">Full-Time</span>
+        </div>
+        <p class="text-cream/55 text-sm leading-relaxed mb-6">
+          Oversee end-to-end execution of commercial renovation and construction projects for high-profile clients including embassies and corporate offices.
+        </p>
+        <ul class="space-y-2 text-sm text-cream/60 mb-6">
+          <li class="flex items-center gap-2"><span class="text-gold">●</span> 5+ years site/project management</li>
+          <li class="flex items-center gap-2"><span class="text-gold">●</span> Civil engineering background preferred</li>
+          <li class="flex items-center gap-2"><span class="text-gold">●</span> Strong leadership of on-site teams</li>
+        </ul>
+        <button onclick="openApplyModal('Construction Project Manager')" class="btn-gold font-semibold px-6 py-3 rounded-full uppercase tracking-wider text-xs">
+          Apply Now
+        </button>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ TESTIMONIALS ============ -->
+<section id="testimonials" class="relative py-28 px-6 overflow-hidden">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center max-w-2xl mx-auto mb-16 reveal">
+      <p class="uppercase tracking-[0.35em] text-gold/70 text-xs mb-4">Client Voices</p>
+      <h2 class="font-display text-4xl md:text-5xl mb-5">Trusted by <span class="gold-text">Families &amp; Firms</span></h2>
+      <p class="text-cream/55 leading-relaxed">What our clients say after working with Terra House.</p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+      <div class="review-card reveal rounded-2xl border border-gold/10 bg-[#161210] p-7 hover:border-gold/30 transition-colors">
+        <div class="flex gap-1 mb-4 star text-lg">★★★★★</div>
+        <p class="font-display italic text-lg text-cream/80 leading-relaxed mb-6">"Terra House handled our embassy renovation with a level of discretion and finish quality I haven't seen elsewhere. True professionals."</p>
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-gradient-to-br from-gold/40 to-walnut"></div>
+          <div>
+            <p class="font-semibold text-sm">A. Khalid</p>
+            <p class="text-xs text-cream/40">Facilities Director, Foreign Mission</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card reveal rounded-2xl border border-gold/10 bg-[#161210] p-7 hover:border-gold/30 transition-colors">
+        <div class="flex gap-1 mb-4 star text-lg">★★★★★</div>
+        <p class="font-display italic text-lg text-cream/80 leading-relaxed mb-6">"Bought our plot in Capital Smart City through Terra House. Farooq Ahmed personally walked us through every document. Zero stress, full transparency."</p>
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-gradient-to-br from-gold/40 to-walnut"></div>
+          <div>
+            <p class="font-semibold text-sm">M. Raza</p>
+            <p class="text-xs text-cream/40">Homeowner, Capital Smart City</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card reveal rounded-2xl border border-gold/10 bg-[#161210] p-7 hover:border-gold/30 transition-colors">
+        <div class="flex gap-1 mb-4 star text-lg">★★★★★</div>
+        <p class="font-display italic text-lg text-cream/80 leading-relaxed mb-6">"Our HQ office fit-out was finished ahead of schedule with premium walnut detailing throughout. The carpentry team is genuinely world-class."</p>
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-gradient-to-br from-gold/40 to-walnut"></div>
+          <div>
+            <p class="font-semibold text-sm">S. Farhan</p>
+            <p class="text-xs text-cream/40">Operations Head, Multinational Firm</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card reveal rounded-2xl border border-gold/10 bg-[#161210] p-7 hover:border-gold/30 transition-colors">
+        <div class="flex gap-1 mb-4 star text-lg">★★★★★</div>
+        <p class="font-display italic text-lg text-cream/80 leading-relaxed mb-6">"Five years and three plot transactions later, Terra House remains our first call. Honest pricing, no surprises."</p>
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-gradient-to-br from-gold/40 to-walnut"></div>
+          <div>
+            <p class="font-semibold text-sm">F. Bibi</p>
+            <p class="text-xs text-cream/40">Repeat Client, B-17 &amp; Faisal Town</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card reveal rounded-2xl border border-gold/10 bg-[#161210] p-7 hover:border-gold/30 transition-colors">
+        <div class="flex gap-1 mb-4 star text-lg">★★★★★</div>
+        <p class="font-display italic text-lg text-cream/80 leading-relaxed mb-6">"The site engineers kept us updated weekly with photos and progress reports. Felt like we had eyes on-site at all times."</p>
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-gradient-to-br from-gold/40 to-walnut"></div>
+          <div>
+            <p class="font-semibold text-sm">U. Tariq</p>
+            <p class="text-xs text-cream/40">Villa Owner, Park View City</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card reveal rounded-2xl border border-gold/10 bg-[#161210] p-7 hover:border-gold/30 transition-colors">
+        <div class="flex gap-1 mb-4 star text-lg">★★★★★</div>
+        <p class="font-display italic text-lg text-cream/80 leading-relaxed mb-6">"Renovated our regional sales office in under three weeks. The brushed-gold accents and lighting design made the space feel instantly premium."</p>
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-gradient-to-br from-gold/40 to-walnut"></div>
+          <div>
+            <p class="font-semibold text-sm">N. Sheikh</p>
+            <p class="text-xs text-cream/40">Branch Manager, Sky Marketing</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT / FOOTER ============ -->
+<section id="contact" class="relative py-28 px-6 hero-bg">
+  <div class="absolute inset-0 bg-charcoal/80"></div>
+  <div class="relative max-w-4xl mx-auto text-center reveal">
+    <p class="uppercase tracking-[0.35em] text-gold/70 text-xs mb-4">Get In Touch</p>
+    <h2 class="font-display text-4xl md:text-6xl mb-6">Let's Build Something <span class="gold-text">Remarkable</span></h2>
+    <p class="text-cream/60 max-w-xl mx-auto mb-10 leading-relaxed">
+      Whether it's a plot in Capital Smart City or a full corporate renovation — Farooq Ahmed and the Terra House team are ready to help.
+    </p>
+
+    <div class="grid sm:grid-cols-3 gap-6 mb-12">
+      <a href="https://wa.me/923331518984" target="_blank" rel="noopener" class="tilt-card rounded-2xl border border-gold/10 bg-[#161210]/80 p-6 hover:border-gold/40 transition-colors">
+        <div class="tilt-inner">
+          <div class="w-12 h-12 mx-auto rounded-full bg-[#25D366]/15 text-[#25D366] flex items-center justify-center mb-3">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6"><path d="M17.498 14.382c-.301-.15-1.767-.867-2.04-.966-.273-.101-.473-.15-.673.15-.197.295-.771.964-.944 1.162-.175.195-.349.21-.646.075-.3-.15-1.263-.465-2.403-1.485-.888-.795-1.484-1.77-1.66-2.07-.174-.3-.019-.465.13-.615.149-.15.345-.39.523-.585.18-.195.24-.345.36-.57.12-.225.06-.42-.03-.57-.09-.15-.66-1.59-.9-2.193-.24-.6-.486-.51-.66-.51-.168-.015-.36-.015-.555-.015-.195 0-.51.075-.78.345-.27.27-1.05 1.026-1.05 2.508 0 1.482 1.08 2.913 1.23 3.117.149.195 2.073 3.165 5.022 4.305 2.948 1.14 2.948.76 3.479.71.53-.051 1.73-.706 1.97-1.39.24-.685.24-1.27.165-1.39-.075-.119-.27-.195-.57-.345z"/><path d="M12.04 2.003c-5.514 0-9.991 4.474-9.993 9.987-.001 2.197.654 3.847 1.751 5.488l-1.123 4.106 4.213-1.105c1.566.857 3.273 1.353 5.156 1.355h.004c5.51 0 9.988-4.477 9.99-9.987.002-2.665-1.034-5.169-2.928-7.063-1.893-1.893-4.399-2.776-7.07-2.781z"/></svg>
+          </div>
+          <p class="font-semibold text-sm mb-1">WhatsApp</p>
+          <p class="text-xs text-cream/50">0333 1518984</p>
+        </div>
+      </a>
+
+      <a href="mailto:theterrahouseco@gmail.com" class="tilt-card rounded-2xl border border-gold/10 bg-[#161210]/80 p-6 hover:border-gold/40 transition-colors">
+        <div class="tilt-inner">
+          <div class="w-12 h-12 mx-auto rounded-full bg-gold/15 text-gold flex items-center justify-center mb-3">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" /></svg>
+          </div>
+          <p class="font-semibold text-sm mb-1">Email</p>
+          <p class="text-xs text-cream/50">theterrahouseco@gmail.com</p>
+        </div>
+      </a>
+
+      <div class="tilt-card rounded-2xl border border-gold/10 bg-[#161210]/80 p-6 hover:border-gold/40 transition-colors">
+        <div class="tilt-inner">
+          <div class="w-12 h-12 mx-auto rounded-full bg-gold/15 text-gold flex items-center justify-center mb-3">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" /></svg>
+          </div>
+          <p class="font-semibold text-sm mb-1">Founder</p>
+          <p class="text-xs text-cream/50">Farooq Ahmed</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider-gold mb-8"></div>
+
+    <div class="flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-cream/40 uppercase tracking-widest">
+      <p>© 2026 Terra House. All rights reserved.</p>
+      <p>Engineering Luxury Since 2006</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ APPLY MODAL ============ -->
+<div id="applyModal" class="fixed inset-0 z-[60] hidden items-center justify-center px-4 modal-backdrop">
+  <div class="relative w-full max-w-md bg-[#161210] border border-gold/20 rounded-3xl p-8 shadow-2xl">
+    <button onclick="closeApplyModal()" class="absolute top-4 right-4 text-cream/50 hover:text-gold transition-colors">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+    </button>
+    <p class="text-xs uppercase tracking-widest text-gold/70 mb-2">Apply for</p>
+    <h3 id="modalJobTitle" class="font-display text-2xl mb-6">Position Title</h3>
+
+    <form id="applyForm" class="space-y-4">
+      <div>
+        <label class="text-xs uppercase tracking-wider text-cream/50 mb-1 block">Full Name</label>
+        <input type="text" required class="w-full bg-charcoal border border-gold/20 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-gold transition-colors" placeholder="Your full name" />
+      </div>
+      <div>
+        <label class="text-xs uppercase tracking-wider text-cream/50 mb-1 block">Phone / WhatsApp</label>
+        <input type="tel" required class="w-full bg-charcoal border border-gold/20 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-gold transition-colors" placeholder="03XX XXXXXXX" />
+      </div>
+      <div>
+        <label class="text-xs uppercase tracking-wider text-cream/50 mb-1 block">Email</label>
+        <input type="email" required class="w-full bg-charcoal border border-gold/20 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-gold transition-colors" placeholder="you@example.com" />
+      </div>
+      <div>
+        <label class="text-xs uppercase tracking-wider text-cream/50 mb-1 block">Why are you a great fit?</label>
+        <textarea required rows="3" class="w-full bg-charcoal border border-gold/20 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-gold transition-colors resize-none" placeholder="Tell us briefly about your experience..."></textarea>
+      </div>
+      <button type="submit" class="w-full btn-gold font-semibold py-3 rounded-full uppercase tracking-wider text-sm">
+        Submit Application
+      </button>
+    </form>
+
+    <div id="applySuccess" class="hidden text-center py-6">
+      <div class="w-16 h-16 mx-auto rounded-full bg-gold/15 border border-gold/40 flex items-center justify-center text-gold mb-4">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-8 h-8"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+      </div>
+      <h4 class="font-display text-xl mb-2">Application Received!</h4>
+      <p class="text-sm text-cream/55">Thank you for applying. Our HR team will reach out to you via phone or email shortly.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============ AI CHATBOT WIDGET ============ -->
+<div class="fixed bottom-6 right-6 z-[70] flex flex-col items-end">
+
+  <!-- Chat window -->
+  <div id="chatWindow" class="hidden mb-4 w-[92vw] max-w-sm h-[520px] bg-[#161210] border border-gold/20 rounded-3xl shadow-2xl flex flex-col overflow-hidden">
+    <!-- header -->
+    <div class="flex items-center justify-between px-5 py-4 bg-gradient-to-r from-walnut to-[#1a120b] border-b border-gold/15">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full bg-gold/20 border border-gold/40 flex items-center justify-center text-gold">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 10.5h.008v.008H8.25V10.5zm3.75 0h.008v.008H12V10.5zm3.75 0h.008v.008h-.008V10.5zM21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z" /></svg>
+        </div>
+        <div>
+          <p class="font-semibold text-sm">Terra House AI</p>
+          <p class="text-[11px] text-cream/40 flex items-center gap-1">
+            <span class="w-1.5 h-1.5 rounded-full bg-green-400 inline-block"></span> Online now
+          </p>
+        </div>
+      </div>
+      <button onclick="toggleChat()" class="text-cream/50 hover:text-gold transition-colors">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" /></svg>
+      </button>
+    </div>
+
+    <!-- messages -->
+    <div id="chatMessages" class="flex-1 overflow-y-auto px-4 py-4 space-y-3 scrollbar-hide"></div>
+
+    <!-- quick replies -->
+    <div id="quickReplies" class="px-4 pb-2 flex flex-wrap gap-2">
+      <button onclick="sendQuick('Ask about B-17')" class="quick-btn text-xs px-3 py-2 rounded-full border border-gold/30 text-gold hover:bg-gold/10 transition-colors">Ask about B-17</button>
+      <button onclick="sendQuick('Inquire about Construction')" class="quick-btn text-xs px-3 py-2 rounded-full border border-gold/30 text-gold hover:bg-gold/10 transition-colors">Inquire about Construction</button>
+      <button onclick="sendQuick('Contact Farooq Ahmed')" class="quick-btn text-xs px-3 py-2 rounded-full border border-gold/30 text-gold hover:bg-gold/10 transition-colors">Contact Farooq Ahmed</button>
+    </div>
+
+    <!-- input -->
+    <form id="chatForm" class="flex items-center gap-2 p-4 border-t border-gold/10">
+      <input id="chatInput" type="text" placeholder="Type your message..." autocomplete="off" class="flex-1 bg-charcoal border border-gold/20 rounded-full px-4 py-2.5 text-sm focus:outline-none focus:border-gold transition-colors" />
+      <button type="submit" class="w-10 h-10 flex-shrink-0 rounded-full btn-gold flex items-center justify-center">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 -rotate-45 translate-x-[1px]"><path d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z" /></svg>
+      </button>
+    </form>
+  </div>
+
+  <!-- Toggle button -->
+  <button onclick="toggleChat()" id="chatToggle" class="pulse-ring w-16 h-16 rounded-full btn-gold flex items-center justify-center shadow-2xl">
+    <svg id="chatIconOpen" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-7 h-7"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 10.5h.008v.008H8.25V10.5zm3.75 0h.008v.008H12V10.5zm3.75 0h.008v.008h-.008V10.5zM21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z" /></svg>
+    <svg id="chatIconClose" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-7 h-7 hidden"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+  </button>
+</div>
+
+<!-- ============ SCRIPTS ============ -->
+<script>
+  // --- Mobile menu ---
+  const menuBtn = document.getElementById('menuBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  menuBtn.addEventListener('click', () => {
+    mobileMenu.classList.toggle('hidden');
+  });
+  mobileMenu.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+  });
+
+  // --- Navbar background on scroll ---
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 40) {
+      navbar.classList.add('shadow-2xl');
+    } else {
+      navbar.classList.remove('shadow-2xl');
+    }
+  });
+
+  // --- Scroll reveal animations ---
+  const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => revealObserver.observe(el));
+
+  // Hero content visible on load
+  window.addEventListener('load', () => {
+    document.getElementById('heroContent').classList.add('visible');
+  });
+
+  // --- 3D Tilt effect for cards ---
+  const tiltCards = document.querySelectorAll('.tilt-card');
+  tiltCards.forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      const rotateX = ((y - centerY) / centerY) * -8;
+      const rotateY = ((x - centerX) / centerX) * 8;
+      card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)';
+    });
+  });
+
+  // --- Download Company Profile ---
+  function downloadProfile() {
+    const content = `TERRA HOUSE — COMPANY PROFILE
+================================
+
+Founder & Owner: Farooq Ahmed
+Operating Since: 2006
+Divisions: Real Estate Marketing & Premium Construction
+
+REAL ESTATE PROJECTS:
+- B-17 Multi Gardens
+- Capital Smart City
+- University Town
+- Faisal Hills
+- Faisal Town
+- Park View City
+
+CONSTRUCTION & RENOVATION CLIENTS:
+- Multinational Companies
+- Premier Group of Companies
+- Embassies
+- Sky Marketing Offices
+
+OUR TEAM:
+- Architecture Leads
+- Master Carpenters
+- Chief Plumbers
+- Site Engineers
+- Skilled Labor Forces
+
+CONTACT:
+Phone / WhatsApp: 0333 1518984
+Email: theterrahouseco@gmail.com
+
+"Engineering Luxury Since 2006"
+================================
+© Terra House. All rights reserved.
+`;
+    const blob = new Blob([content], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'Terra-House-Company-Profile.txt';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+
+  // --- Apply Modal ---
+  const applyModal = document.getElementById('applyModal');
+  const modalJobTitle = document.getElementById('modalJobTitle');
+  const applyForm = document.getElementById('applyForm');
+  const applySuccess = document.getElementById('applySuccess');
+
+  function openApplyModal(jobTitle) {
+    modalJobTitle.textContent = jobTitle;
+    applyModal.classList.remove('hidden');
+    applyModal.classList.add('flex');
+    applyForm.classList.remove('hidden');
+    applySuccess.classList.add('hidden');
+    applyForm.reset();
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeApplyModal() {
+    applyModal.classList.add('hidden');
+    applyModal.classList.remove('flex');
+    document.body.style.overflow = '';
+  }
+
+  applyModal.addEventListener('click', (e) => {
+    if (e.target === applyModal) closeApplyModal();
+  });
+
+  applyForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    applyForm.classList.add('hidden');
+    applySuccess.classList.remove('hidden');
+    setTimeout(() => {
+      closeApplyModal();
+    }, 3000);
+  });
+
+  // --- AI CHATBOT ---
+  const chatWindow = document.getElementById('chatWindow');
+  const chatMessages = document.getElementById('chatMessages');
+  const chatForm = document.getElementById('chatForm');
+  const chatInput = document.getElementById('chatInput');
+  const chatIconOpen = document.getElementById('chatIconOpen');
+  const chatIconClose = document.getElementById('chatIconClose');
+  const chatToggle = document.getElementById('chatToggle');
+  let chatOpened = false;
+
+  function toggleChat() {
+    chatWindow.classList.toggle('hidden');
+    chatIconOpen.classList.toggle('hidden');
+    chatIconClose.classList.toggle('hidden');
+    chatToggle.classList.remove('pulse-ring');
+
+    if (!chatWindow.classList.contains('hidden') && !chatOpened) {
+      chatOpened = true;
+      setTimeout(() => {
+        addBotMessage("Welcome to Terra House! I am your AI assistant. How can I help you today?");
+      }, 400);
+    }
+  }
+
+  function addUserMessage(text) {
+    const div = document.createElement('div');
+    div.className = 'flex justify-end';
+    div.innerHTML = `<div class="chat-bubble-user rounded-2xl rounded-tr-sm px-4 py-2.5 text-sm max-w-[80%] font-medium">${text}</div>`;
+    chatMessages.appendChild(div);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+
+  function addBotMessage(text) {
+    showTyping(() => {
+      const div = document.createElement('div');
+      div.className = 'flex justify-start';
+      div.innerHTML = `<div class="chat-bubble-bot rounded-2xl rounded-tl-sm px-4 py-2.5 text-sm max-w-[80%] text-cream/90 leading-relaxed">${text}</div>`;
+      chatMessages.appendChild(div);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    });
+  }
+
+  function showTyping(callback) {
+    const typingDiv = document.createElement('div');
+    typingDiv.className = 'flex justify-start typing-indicator';
+    typingDiv.innerHTML = `<div class="chat-bubble-bot rounded-2xl rounded-tl-sm px-4 py-3 flex items-center gap-1.5">
+      <span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span>
+    </div>`;
+    chatMessages.appendChild(typingDiv);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+
+    setTimeout(() => {
+      typingDiv.remove();
+      callback();
+    }, 1100 + Math.random() * 700);
+  }
+
+  function getBotReply(message) {
+    const msg = message.toLowerCase();
+
+    if (msg.includes('b-17') || msg.includes('b17') || msg.includes('multi garden')) {
+      return "Great choice! <strong>B-17 Multi Gardens</strong> is one of Islamabad's most popular eco-friendly housing schemes, offering residential & commercial plots with excellent infrastructure. Prices and availability change frequently — would you like to chat directly with our founder, Farooq Ahmed, on WhatsApp for live rates? <a href='https://wa.me/923331518984?text=I%20am%20interested%20in%20B-17%20Multi%20Gardens' target='_blank' class='text-gold underline'>Tap here to WhatsApp us</a>.";
+    }
+
+    if (msg.includes('construction') || msg.includes('renovation') || msg.includes('build')) {
+      return "Terra House's Construction Division handles everything from full-scale builds to executive renovations — including projects for <strong>multinational companies, embassies, and corporate offices</strong>. Could you share a few details about your project (size, location, budget range) so we can connect you with the right team?";
+    }
+
+    if (msg.includes('farooq') || msg.includes('owner') || msg.includes('founder') || msg.includes('contact')) {
+      return "You can reach our founder, <strong>Farooq Ahmed</strong>, directly via WhatsApp at <a href='https://wa.me/923331518984' target='_blank' class='text-gold underline'>0333 1518984</a> or by email at <a href='mailto:theterrahouseco@gmail.com' class='text-gold underline'>theterrahouseco@gmail.com</a>. He personally oversees major client inquiries.";
+    }
+
+    if (msg.includes('smart city') || msg.includes('capital smart')) {
+      return "<strong>Capital Smart City</strong> is Pakistan's first smart city project, featuring futuristic infrastructure along the M-2 Motorway. Plot prices vary by block and category — would you like our team to share the latest available files?";
+    }
+
+    if (msg.includes('park view')) {
+      return "<strong>Park View City</strong> offers luxury villas, apartments, and farmhouses in a gated community with resort-style amenities. Let us know your budget and we'll match you with the best available options.";
+    }
+
+    if (msg.includes('faisal town') || msg.includes('faisal hills')) {
+      return "Both <strong>Faisal Town</strong> and <strong>Faisal Hills</strong> are established, premium societies in Islamabad with excellent infrastructure and views. Would you like residential or commercial plot details?";
+    }
+
+    if (msg.includes('university town')) {
+      return "<strong>University Town</strong> in Rawalpindi offers a peaceful residential environment close to leading academic institutions — great for families and investors alike.";
+    }
+
+    if (msg.includes('career') || msg.includes('job') || msg.includes('hiring') || msg.includes('vacancy')) {
+      return "We're currently hiring for a <strong>Senior Real Estate Sales Executive</strong> and a <strong>Construction Project Manager</strong>! Scroll to our Careers section above and click 'Apply Now' to submit your application directly.";
+    }
+
+    if (msg.includes('price') || msg.includes('cost') || msg.includes('rate')) {
+      return "Pricing varies based on project type, location, and current market rates. For the most accurate and up-to-date quote, I'd recommend messaging Farooq Ahmed directly on <a href='https://wa.me/923331518984' target='_blank' class='text-gold underline'>WhatsApp</a> — he responds personally to pricing inquiries.";
+    }
+
+    if (msg.includes('hello') || msg.includes('hi') || msg.includes('salam') || msg.includes('assalam')) {
+      return "Hello! 👋 Welcome to Terra House. I can help with information on our real estate projects, construction services, careers, or connect you directly with Farooq Ahmed. What would you like to know?";
+    }
+
+    if (msg.includes('thank')) {
+      return "You're most welcome! Feel free to reach out anytime — Terra House is here to help with all your real estate and construction needs. 🏗️";
+    }
+
+    return "Thanks for your message! For detailed information, I'd recommend exploring our Real Estate or Construction sections above, or reaching out directly to Farooq Ahmed via <a href='https://wa.me/923331518984' target='_blank' class='text-gold underline'>WhatsApp</a> for a personalized response.";
+  }
+
+  function handleUserInput(text) {
+    if (!text.trim()) return;
+    addUserMessage(text);
+    chatInput.value = '';
+    const reply = getBotReply(text);
+    addBotMessage(reply);
+  }
+
+  chatForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    handleUserInput(chatInput.value);
+  });
+
+  function sendQuick(text) {
+    handleUserInput(text);
+  }
+</script>
+
+</body>
+</html>
